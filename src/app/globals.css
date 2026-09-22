@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+@theme {
+  --color-club-navy-deep: #071326;
+  --color-club-navy: #0b1d3a;
+  --color-club-navy-light: #132c54;
+  --color-club-blue-dark: #1a4b8c;
+  --color-club-blue: #2462b3;
+  --color-club-blue-light: #2d70d0;
+  --color-club-gold: #d4af37;
+  --color-club-gold-light: #f3e5ab;
+  --color-club-gold-dark: #aa820a;
+  --color-pitch-green-dark: #062615;
+  --color-pitch-green: #0c3d22;
+  --color-pitch-green-light: #125430;
+
+  --font-sans: var(--font-plus-jakarta-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-jersey: var(--font-bebas-neue), cursive, sans-serif;
+
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+  --shadow-gold-glow: 0 0 25px rgba(212, 175, 55, 0.35);
+  --shadow-gold-glow-lg: 0 0 45px rgba(212, 175, 55, 0.55);
+  --shadow-blue-glow: 0 0 30px rgba(45, 112, 208, 0.35);
+}
+
+:root {
+  --gold-primary: #d4af37;
+  --gold-light: #f3e5ab;
+  --navy-dark: #071326;
+  --navy-primary: #0b1d3a;
+}
+
+body {
+  background-color: #071326;
+  color: #f8fafc;
+  font-family: var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  touch-action: manipulation;
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: rgba(11, 29, 58, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+.glass-panel-accent {
+  background: linear-gradient(135deg, rgba(19, 44, 84, 0.82) 0%, rgba(11, 29, 58, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(243, 229, 171, 0.15);
+}
+
+.glass-card-interactive {
+  background: rgba(11, 29, 58, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-interactive:hover {
+  background: rgba(19, 44, 84, 0.85);
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+/* Gold Text Gradient */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fcedba 0%, #d4af37 55%, #aa820a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.blue-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #7db4f5 50%, #2d70d0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Halı Saha Pitch Pattern & Lines */
+.pitch-container {
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, #0d4526 0%, #082d19 70%, #051d10 100%);
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 60px rgba(0, 0, 0, 0.6);
+  user-select: none;
+  touch-action: none;
+}
+
+/* Grass mowing stripes */
+.pitch-stripes {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 40px,
+    transparent 40px,
+    transparent 80px
+  );
+}
+
+.pitch-line {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+/* Tactical Player Marker */
+.player-token {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  touch-action: none;
+  z-index: 20;
+}
+
+.player-token:active {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.12);
+  z-index: 50;
+}
+
+.player-token.is-moving {
+  transition: none !important;
+  z-index: 50;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+}
+
+/* Smooth animated formation transitions */
+.player-token.animated-position {
+  transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.token-long-pressing {
+  transform: translate(-50%, -50%) scale(1.18) !important;
+  box-shadow: 0 0 35px rgba(212, 175, 55, 0.95) !important;
+  border-color: #d4af37 !important;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Tactical On-Pitch Popover */
+.tactical-popover {
+  position: absolute;
+  z-index: 45;
+  background: rgba(7, 19, 38, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 16px 45px -5px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.35);
+  border-radius: 1.25rem;
+  padding: 0.85rem;
+  width: 275px;
+  max-width: calc(100% - 1.5rem);
+  pointer-events: auto;
+  transform: translate(-50%, -100%);
+  margin-top: -14px;
+  animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.tactical-popover.popover-below {
+  transform: translate(-50%, 0);
+  margin-top: 14px;
+  animation: popoverFadeInBelow 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -95%) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+}
+
+@keyframes popoverFadeInBelow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -5%) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #071326;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a4b8c;
+  border-radius: 4px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
+
+/* Badge Shimmer Effect */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.badge-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.badge-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-20deg);
+  animation: shimmer 3s infinite;
+}
+
+/* Pulse animation for live indicators */
+@keyframes pulse-gold {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.08); }
+}
+.animate-pulse-gold {
+  animation: pulse-gold 2.4s infinite;
+}
