@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 import { MVP_CANDIDATES, INITIAL_MVP_VOTES } from '@/data/mvpCandidates';
 import { Award, RotateCcw, Check, CheckCheck, CircleCheck } from 'lucide-react';
@@ -11,17 +11,16 @@ interface MvpVotingSectionProps {
 
 export const MvpVotingSection: React.FC<MvpVotingSectionProps> = ({ showToast }) => {
   const [votes, setVotes] = useState<Record<string, number>>(INITIAL_MVP_VOTES);
-  const [userVote, setUserVote] = useState<string | null>(null);
-
-  // Initialize from localStorage on client mount
-  useEffect(() => {
-    try {
-      const savedVote = localStorage.getItem('yenikoy_user_vote');
-      if (savedVote) {
-        setUserVote(savedVote);
+  const [userVote, setUserVote] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem('yenikoy_user_vote');
+      } catch {
+        return null;
       }
-    } catch (_) {}
-  }, []);
+    }
+    return null;
+  });
 
   const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
 
@@ -43,7 +42,7 @@ export const MvpVotingSection: React.FC<MvpVotingSectionProps> = ({ showToast })
     setUserVote(candidateId);
     try {
       localStorage.setItem('yenikoy_user_vote', candidateId);
-    } catch (_) {}
+    } catch {}
 
     confetti({
       particleCount: 75,
@@ -72,7 +71,7 @@ export const MvpVotingSection: React.FC<MvpVotingSectionProps> = ({ showToast })
     setUserVote(null);
     try {
       localStorage.removeItem('yenikoy_user_vote');
-    } catch (_) {}
+    } catch {}
 
     showToast('Oyunuz Sıfırlandı', 'İstediğiniz yeni adaya oy verebilirsiniz.', 'info');
   };

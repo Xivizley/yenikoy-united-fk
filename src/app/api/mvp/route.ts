@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { MVP_CANDIDATES, INITIAL_MVP_VOTES } from '@/data/mvpCandidates';
 
-let votesStore: Record<string, number> = { ...INITIAL_MVP_VOTES };
+const votesStore: Record<string, number> = { ...INITIAL_MVP_VOTES };
 
 export async function GET() {
   const total = Object.values(votesStore).reduce((a, b) => a + b, 0);
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       votes: votesStore,
       totalVotes: total,
     });
-  } catch (_) {
+  } catch {
     return NextResponse.json({ error: 'Geçersiz oy isteği.' }, { status: 400 });
   }
 }

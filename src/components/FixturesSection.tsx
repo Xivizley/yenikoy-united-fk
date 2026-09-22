@@ -68,7 +68,7 @@ export const FixturesSection: React.FC<FixturesSectionProps> = ({
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-club-gold/10 pb-3 text-xs text-slate-400">
               <div className="flex items-center gap-2">
-                <span className="text-club-gold">📅</span>
+                <CalendarDays className="w-3.5 h-3.5 text-club-gold" />
                 <span className="text-white font-medium">
                   {fix.date} {fix.dayName ? `(${fix.dayName})` : ''}
                 </span>

@@ -22,17 +22,14 @@ export const ChallengeModal: React.FC<ChallengeModalProps> = ({
   const [captain, setCaptain] = useState('');
   const [phone, setPhone] = useState('');
   const [pitch, setPitch] = useState('Karacabey Belediye Halı Sahası');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 2);
+    return d.toISOString().split('T')[0];
+  });
   const [time, setTime] = useState('21:00 - 22:00');
   const [stake, setStake] = useState('Baklavasına Halı Saha Maçı');
   const [note, setNote] = useState('');
-
-  // Default match date to 2 days ahead
-  useEffect(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 2);
-    setDate(d.toISOString().split('T')[0]);
-  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

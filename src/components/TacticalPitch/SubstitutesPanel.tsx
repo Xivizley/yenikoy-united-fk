@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Player, ActivePitchPlayer } from '@/types';
-import { IdCard, Users, ArrowRightLeft, Star, Heart, CheckSquare, LogIn } from 'lucide-react';
+import { IdCard, Users, ArrowRightLeft, Heart, CheckSquare, LogIn } from 'lucide-react';
 
 interface SubstitutesPanelProps {
   selectedPlayer: Player | null;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import confetti from 'canvas-confetti';
 import { Player, ActivePitchPlayer } from '@/types';
 import { FORMATIONS } from '@/data/formations';
@@ -22,7 +22,19 @@ export const TacticalPitch: React.FC<TacticalPitchProps> = ({
   showToast,
 }) => {
   const [currentFormation, setCurrentFormation] = useState<string>('3-2-2');
-  const [activePitchPlayers, setActivePitchPlayers] = useState<ActivePitchPlayer[]>([]);
+  const [activePitchPlayers, setActivePitchPlayers] = useState<ActivePitchPlayer[]>(() => {
+    const formDef = FORMATIONS['3-2-2'];
+    return formDef.positions.map((pos, idx) => {
+      const player = allPlayers.find((p) => p.id === pos.id) || allPlayers[0];
+      return {
+        slotIndex: idx,
+        id: pos.id,
+        x: pos.x,
+        y: pos.y,
+        player,
+      };
+    });
+  });
   const [selectedPlayerId, setSelectedPlayerId] = useState<string>('renzi');
   const [popoverPlayerId, setPopoverPlayerId] = useState<string | null>(null);
   const [subModalPlayerId, setSubModalPlayerId] = useState<string | null>(null);
@@ -41,22 +53,6 @@ export const TacticalPitch: React.FC<TacticalPitchProps> = ({
     startX: 0,
     startY: 0,
   });
-
-  // Initialize pitch players from default 3-2-2 formation
-  useEffect(() => {
-    const formDef = FORMATIONS['3-2-2'];
-    const initial = formDef.positions.map((pos, idx) => {
-      const player = allPlayers.find((p) => p.id === pos.id) || allPlayers[0];
-      return {
-        slotIndex: idx,
-        id: pos.id,
-        x: pos.x,
-        y: pos.y,
-        player,
-      };
-    });
-    setActivePitchPlayers(initial);
-  }, [allPlayers]);
 
   // Handle formation change
   const handleChangeFormation = (formationKey: string) => {

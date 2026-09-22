@@ -41,7 +41,7 @@ export const PlayerToken: React.FC<PlayerTokenProps> = ({
         if (navigator.vibrate) {
           try {
             navigator.vibrate(50);
-          } catch (_) {}
+          } catch {}
         }
         onLongPress(player.id);
       }

@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     challengesStore = [newChallenge, ...challengesStore];
 
     return NextResponse.json({ success: true, challenge: newChallenge }, { status: 201 });
-  } catch (_) {
+  } catch {
     return NextResponse.json(
       { error: 'Sunucu hatası, lütfen tekrar deneyin.' },
       { status: 500 }
