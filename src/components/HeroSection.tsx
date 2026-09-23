@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Shield, ChevronRight } from 'lucide-react';
 
 export function HeroSection() {
@@ -5,62 +6,17 @@ export function HeroSection() {
     <section className="bg-navy text-white border-b-4 border-gold">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
         <div className="flex flex-col sm:flex-row items-center gap-8 sm:gap-12">
-          {/* Club Crest */}
-          <div className="shrink-0">
-            <svg
-              width="130"
-              height="130"
-              viewBox="0 0 64 64"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              className="sm:w-[160px] sm:h-[160px] drop-shadow-md"
-            >
-              <path
-                d="M32 4L8 16V36C8 48 18 58 32 62C46 58 56 48 56 36V16L32 4Z"
-                fill="#0A1128"
-                stroke="#D4AF37"
-                strokeWidth="2.2"
-              />
-              <path
-                d="M32 8L12 18V35C12 45.5 20.5 54 32 58C43.5 54 52 45.5 52 35V18L32 8Z"
-                fill="none"
-                stroke="#D4AF37"
-                strokeWidth="0.8"
-                opacity="0.6"
-              />
-              <text
-                x="32"
-                y="34"
-                textAnchor="middle"
-                dominantBaseline="central"
-                fill="#D4AF37"
-                fontFamily="Inter, sans-serif"
-                fontWeight="800"
-                fontSize="18"
-              >
-                YU
-              </text>
-              <text
-                x="32"
-                y="48"
-                textAnchor="middle"
-                dominantBaseline="central"
-                fill="#D4AF37"
-                fontFamily="Inter, sans-serif"
-                fontWeight="600"
-                fontSize="7"
-                opacity="0.85"
-              >
-                2025
-              </text>
-              <circle cx="32" cy="17" r="4" fill="none" stroke="#D4AF37" strokeWidth="1" />
-              <path
-                d="M30 15L34 15M32 13L32 17M29.5 16.5L34.5 17.5"
-                stroke="#D4AF37"
-                strokeWidth="0.5"
-              />
-            </svg>
+          {/* Official Club Crest */}
+          <div className="shrink-0 relative group">
+            <div className="absolute -inset-1 rounded-full bg-gold/30 blur-sm group-hover:bg-gold/50 transition-colors" />
+            <Image
+              src="/logo.png"
+              alt="Yeniköy United FK Resmi Kulüp Arması"
+              width={170}
+              height={170}
+              className="relative rounded-full drop-shadow-2xl border-2 border-gold/60 p-0.5 bg-navy sm:w-[180px] sm:h-[180px]"
+              priority
+            />
           </div>
 
           {/* Text Content */}

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 interface Kit {
   name: string;
   type: string;
@@ -65,8 +67,8 @@ const KITS: Kit[] = [
 function JerseySvg({ kit }: { kit: Kit }) {
   return (
     <svg
-      width="140"
-      height="140"
+      width="144"
+      height="144"
       viewBox="0 0 120 120"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -108,20 +110,17 @@ function JerseySvg({ kit }: { kit: Kit }) {
         strokeLinecap="round"
         fill="none"
       />
-      {/* Crest Symbol on Chest */}
-      <circle cx="60" cy="48" r="7" fill={kit.bodyColor} stroke={kit.textColor} strokeWidth="1" />
-      <text
-        x="60"
-        y="50.5"
-        textAnchor="middle"
-        dominantBaseline="central"
-        fill={kit.textColor}
-        fontFamily="Inter, sans-serif"
-        fontWeight="800"
-        fontSize="6"
-      >
-        YU
-      </text>
+
+      {/* Official Club Badge on Chest */}
+      <image
+        href="/logo.png"
+        x="49"
+        y="35"
+        width="22"
+        height="22"
+        preserveAspectRatio="xMidYMid meet"
+      />
+
       {/* Sponsor / Club Print */}
       <text
         x="60"
@@ -140,7 +139,7 @@ function JerseySvg({ kit }: { kit: Kit }) {
         y="83"
         textAnchor="middle"
         fill={kit.textColor}
-        opacity="0.75"
+        opacity="0.8"
         fontFamily="Inter, sans-serif"
         fontWeight="700"
         fontSize="6"
@@ -167,6 +166,28 @@ export function KitsSection() {
         <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider hidden sm:block">
           3 Resmi Kit
         </span>
+      </div>
+
+      {/* Official Crest Showcase Banner */}
+      <div className="bg-white border border-gray-200 rounded-lg p-5 mb-8 shadow-sm flex flex-col sm:flex-row items-center gap-5">
+        <Image
+          src="/logo.png"
+          alt="Yeniköy United FK Resmi Arması"
+          width={72}
+          height={72}
+          className="rounded-full shrink-0 drop-shadow-md border border-gold/40"
+        />
+        <div className="text-center sm:text-left">
+          <div className="inline-block bg-gold/15 text-gold-dark text-xs font-bold px-2 py-0.5 rounded mb-1">
+            Resmi Göğüs Arması
+          </div>
+          <h3 className="text-navy font-bold text-base">
+            Kulüp Arması Tüm Resmi Formalarda Göğüste Yer Almaktadır
+          </h3>
+          <p className="text-gray-600 text-xs sm:text-sm mt-0.5">
+            Karacabey Boğazı deniz fenerleri, Karadeniz/Marmara dalgası, ay-yıldız ve altın defne yapraklarıyla donatılmış resmi Yeniköy United nakış arması formalarımızın kalbidir.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
