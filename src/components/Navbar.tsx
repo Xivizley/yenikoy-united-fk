@@ -1,132 +1,136 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ClubCrest } from './ClubCrest';
-import { MapPin, Users, CalendarDays, Award, Swords, Menu, X, LayoutGrid } from 'lucide-react';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
-interface NavbarProps {
-  onOpenChallengeModal: () => void;
+const NAV_LINKS = [
+  { label: 'Haberler', href: '#haberler' },
+  { label: 'Kadro', href: '#kadro' },
+  { label: 'Formalar', href: '#formalar' },
+  { label: 'Fikstür', href: '#fikstur' },
+];
+
+function ClubCrest({ size = 36 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Yeniköy United FK Arması"
+    >
+      {/* Shield shape */}
+      <path
+        d="M32 4L8 16V36C8 48 18 58 32 62C46 58 56 48 56 36V16L32 4Z"
+        fill="#0A1128"
+        stroke="#D4AF37"
+        strokeWidth="2"
+      />
+      {/* Inner border */}
+      <path
+        d="M32 8L12 18V35C12 45.5 20.5 54 32 58C43.5 54 52 45.5 52 35V18L32 8Z"
+        fill="none"
+        stroke="#D4AF37"
+        strokeWidth="0.75"
+        opacity="0.6"
+      />
+      {/* YU monogram */}
+      <text
+        x="32"
+        y="34"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fill="#D4AF37"
+        fontFamily="Inter, sans-serif"
+        fontWeight="800"
+        fontSize="18"
+      >
+        YU
+      </text>
+      {/* Year */}
+      <text
+        x="32"
+        y="48"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fill="#D4AF37"
+        fontFamily="Inter, sans-serif"
+        fontWeight="600"
+        fontSize="7"
+        opacity="0.8"
+      >
+        2025
+      </text>
+      {/* Football icon */}
+      <circle cx="32" cy="17" r="4" fill="none" stroke="#D4AF37" strokeWidth="1" />
+      <path d="M30 15L34 15M32 13L32 17M29.5 16.5L34.5 17.5" stroke="#D4AF37" strokeWidth="0.5" />
+    </svg>
+  );
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenChallengeModal }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel border-b border-club-gold/20 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        
-        {/* Brand & Logo */}
-        <a href="#" className="flex items-center gap-3.5 group">
-          <ClubCrest size="md" className="transition-transform duration-300 group-hover:scale-105" />
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-display font-extrabold text-xl tracking-tight text-white group-hover:text-club-gold transition-colors">
-                YENİKÖY UNITED <span className="text-club-gold">FK</span>
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo & Club Name */}
+          <a href="#" className="flex items-center gap-3">
+            <ClubCrest size={36} />
+            <div>
+              <span className="text-navy font-bold text-lg leading-tight block">
+                Yeniköy United FK
               </span>
-              <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-bold tracking-widest bg-club-gold/15 text-club-gold border border-club-gold/30 rounded">
-                EST. 2025
+              <span className="text-xs text-gray-500 leading-tight hidden sm:block">
+                Karacabey, Bursa
               </span>
             </div>
-            <p className="text-xs text-slate-400 flex items-center gap-1.5 font-medium">
-              <MapPin className="w-3 h-3 text-club-gold" /> Karacabey, Bursa
-            </p>
+          </a>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-gray-600 hover:text-navy font-medium text-sm transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
-        </a>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-          <a
-            href="#taktik"
-            className="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-club-gold hover:bg-club-navy-light/40 rounded-lg transition-all flex items-center gap-2"
-          >
-            <LayoutGrid className="w-4 h-4 text-club-gold" /> Taktik Tahtası
-          </a>
-          <a
-            href="#kadro"
-            className="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-club-gold hover:bg-club-navy-light/40 rounded-lg transition-all flex items-center gap-2"
-          >
-            <Users className="w-4 h-4 text-club-gold" /> Kadro
-          </a>
-          <a
-            href="#fikstur"
-            className="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-club-gold hover:bg-club-navy-light/40 rounded-lg transition-all flex items-center gap-2"
-          >
-            <CalendarDays className="w-4 h-4 text-club-gold" /> Fikstür & Skorlar
-          </a>
-          <a
-            href="#mvp"
-            className="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-club-gold hover:bg-club-navy-light/40 rounded-lg transition-all flex items-center gap-2"
-          >
-            <Award className="w-4 h-4 text-club-gold" /> Haftanın MVP&apos;si
-          </a>
-        </nav>
-
-        {/* Action Button (Meydan Oku) & Mobile Menu Trigger */}
-        <div className="flex items-center gap-3">
+          {/* Mobile Menu Button */}
           <button
-            onClick={onOpenChallengeModal}
-            className="relative group overflow-hidden px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-club-gold via-amber-400 to-club-gold-dark text-club-navy-deep font-display font-extrabold text-xs sm:text-sm tracking-wide shadow-gold-glow hover:shadow-gold-lg transition-all duration-300 hover:scale-[1.02] active:scale-95 flex items-center gap-2 cursor-pointer"
+            type="button"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 text-gray-600 hover:text-navy"
+            aria-label={isMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
           >
-            <Swords className="w-4 h-4" />
-            <span>MEYDAN OKU</span>
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-white/20 skew-x-12"></div>
-          </button>
-
-          {/* Mobile Hamburger Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-xl bg-club-navy-light/60 border border-club-gold/20 text-slate-200 hover:text-club-gold focus:outline-none cursor-pointer"
-            aria-label="Menüyü Aç"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-club-gold/15 bg-club-navy-deep/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
-          <a
-            href="#taktik"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 rounded-xl text-slate-200 font-medium hover:bg-club-navy hover:text-club-gold transition-colors flex items-center gap-3"
-          >
-            <LayoutGrid className="w-5 h-5 text-club-gold" /> 2D Taktik Tahtası (İlk 8)
-          </a>
-          <a
-            href="#kadro"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 rounded-xl text-slate-200 font-medium hover:bg-club-navy hover:text-club-gold transition-colors flex items-center gap-3"
-          >
-            <Users className="w-5 h-5 text-club-gold" /> Oyuncu Kadrosu & Roller
-          </a>
-          <a
-            href="#fikstur"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 rounded-xl text-slate-200 font-medium hover:bg-club-navy hover:text-club-gold transition-colors flex items-center gap-3"
-          >
-            <CalendarDays className="w-5 h-5 text-club-gold" /> Maç Takvimi & Skortabela
-          </a>
-          <a
-            href="#mvp"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-4 py-3 rounded-xl text-slate-200 font-medium hover:bg-club-navy hover:text-club-gold transition-colors flex items-center gap-3"
-          >
-            <Award className="w-5 h-5 text-club-gold" /> Haftanın MVP Oylaması
-          </a>
-          <div className="pt-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenChallengeModal();
-              }}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-club-gold to-club-gold-dark text-club-navy-deep font-display font-extrabold text-center tracking-wide shadow-gold-glow flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Swords className="w-4 h-4" /> Rakip Takım Başvurusu Yap
-            </button>
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden border-t border-gray-100 bg-white">
+          <div className="px-4 py-3 space-y-1">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-3 py-2 text-gray-600 hover:text-navy hover:bg-gray-50 rounded-md font-medium text-sm transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       )}
-    </header>
+    </nav>
   );
-};
+}
